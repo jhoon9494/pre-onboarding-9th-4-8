@@ -8,16 +8,22 @@ import {
   Td,
   Heading,
   VStack,
+  Button,
 } from '@chakra-ui/react';
 import PageButtonList from '@/components/PageButtonList';
 import usePagination from '@/lib/hooks/usePagination';
+import useFilterParams from '@/lib/hooks/useFilterParams';
 
 const Admin = () => {
+  const { toggleFilter: todayToggle, hasFilter } = useFilterParams('today');
   const { pageData, startPage, endPage, pageSize } = usePagination();
 
   return (
     <VStack maxW="1280px" mx="auto" py="10">
       <Heading>주문 목록</Heading>
+      <Button onClick={() => todayToggle('2023-03-08')} isActive={hasFilter}>
+        오늘 거래 보기
+      </Button>
 
       <TableContainer w="100%">
         <Table variant="striped">
