@@ -13,10 +13,12 @@ import PageButtonList from '@/components/PageButtonList';
 import usePagination from '@/lib/hooks/usePagination';
 
 const Admin = () => {
-  const { pageData } = usePagination();
+  const { pageData, startPage, endPage, pageSize } = usePagination();
+
   return (
     <VStack maxW="1280px" mx="auto" py="10">
       <Heading>주문 목록</Heading>
+
       <TableContainer w="100%">
         <Table variant="striped">
           <Thead>
@@ -45,7 +47,11 @@ const Admin = () => {
           </Tbody>
         </Table>
       </TableContainer>
-      <PageButtonList />
+      <PageButtonList
+        startPage={startPage}
+        endPage={endPage}
+        pageSize={pageSize}
+      />
     </VStack>
   );
 };

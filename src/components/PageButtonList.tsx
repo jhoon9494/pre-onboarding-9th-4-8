@@ -1,10 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { Button, HStack } from '@chakra-ui/react';
-import useFetch from '@/lib/hooks/usePagination';
-import { generatePageList } from '@/lib/utils/pagenationHelper';
+import { generatePageList } from '@/lib/utils/orderDataHelper';
+import { IPageButtonList } from '@/interface/props';
 
-const PageButtonList = () => {
-  const { startPage, endPage, pageSize } = useFetch();
+const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageNumber = searchParams.get('page');
   const pageList = generatePageList(startPage, endPage);
