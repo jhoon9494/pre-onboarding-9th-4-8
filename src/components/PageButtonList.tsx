@@ -26,12 +26,16 @@ const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
       >
         prev
       </Button>
-      {pageList.map((page) => {
+      {pageList.map((page, index) => {
         return (
           <Button
             key={`${page}-button`}
             type="button"
-            isActive={page === Number(pageNumber)}
+            isActive={
+              index === 0 && !searchParams.get('page')
+                ? true
+                : page === Number(pageNumber)
+            }
             onClick={() => onMovePage(page)}
           >
             {page}
