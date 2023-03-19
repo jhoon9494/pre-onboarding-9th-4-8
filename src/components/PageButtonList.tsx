@@ -14,7 +14,8 @@ const PageButtonList = () => {
       number += option;
     }
     const page = number.toString();
-    setSearchParams({ page });
+    searchParams.set('page', page);
+    setSearchParams(searchParams);
   };
 
   return (
