@@ -1,9 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 
-const useFilterParams = (param: string) => {
+const useQueryString = (param: string) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const toggleFilter = (value: string) => {
+  const toggleParam = (value: string) => {
     searchParams.set('page', '1');
     setSearchParams(searchParams);
 
@@ -16,9 +16,18 @@ const useFilterParams = (param: string) => {
     }
   };
 
+  const getParam = () => {
+    return searchParams.get(param) || '';
+  };
+
+  const setParam = (value: string) => {
+    searchParams.set(param, value);
+    setSearchParams(searchParams);
+  };
+
   const hasFilter = !!searchParams.get(param);
 
-  return { toggleFilter, hasFilter };
+  return { toggleParam, hasFilter, setParam, getParam };
 };
 
-export default useFilterParams;
+export default useQueryString;

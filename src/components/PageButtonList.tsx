@@ -1,11 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
 import { Button, HStack } from '@chakra-ui/react';
 import { generatePageList } from '@/lib/utils/orderDataHelper';
 import { IPageButtonList } from '@/interface/props';
+import useQueryString from '@/lib/hooks/useQueryString';
 
 const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const pageNumber = searchParams.get('page');
+  const { getParam, setParam } = useQueryString('page');
+  const pageNumber = getParam();
   const pageList = generatePageList(startPage, endPage);
 
   const onMovePage = (number: number, option?: number) => {
@@ -13,8 +13,7 @@ const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
       number += option;
     }
     const page = number.toString();
-    searchParams.set('page', page);
-    setSearchParams(searchParams);
+    setParam(page);
   };
 
   return (
@@ -32,9 +31,7 @@ const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
             key={`${page}-button`}
             type="button"
             isActive={
-              index === 0 && !searchParams.get('page')
-                ? true
-                : page === Number(pageNumber)
+              index === 0 && !getParam() ? true : page === Number(pageNumber)
             }
             onClick={() => onMovePage(page)}
           >
@@ -44,7 +41,10 @@ const PageButtonList = ({ startPage, endPage, pageSize }: IPageButtonList) => {
       })}
       <Button
         type="button"
-        onClick={() => onMovePage(Number(pageNumber), +1)}
+        onClick={() => {
+          if (!getParam()) onMovePage(Number(pageNumber), 2);
+          else onMovePage(Number(pageNumber), 1);
+        }}
         isDisabled={Number(pageNumber) === pageSize}
       >
         next

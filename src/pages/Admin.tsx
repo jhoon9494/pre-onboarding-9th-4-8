@@ -12,10 +12,10 @@ import {
 } from '@chakra-ui/react';
 import PageButtonList from '@/components/PageButtonList';
 import usePagination from '@/lib/hooks/usePagination';
-import useFilterParams from '@/lib/hooks/useFilterParams';
+import useQueryString from '@/lib/hooks/useQueryString';
 
 const Admin = () => {
-  const { toggleFilter: todayToggle, hasFilter } = useFilterParams('today');
+  const { toggleParam: todayToggle, hasFilter } = useQueryString('today');
   const { pageData, startPage, endPage, pageSize } = usePagination();
 
   return (
