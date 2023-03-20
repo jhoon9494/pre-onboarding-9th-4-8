@@ -9,6 +9,8 @@ const useSetParams = () => {
   const onSetParams = ({ pageValue, dateValue, event }: IOnSetParams) => {
     if (pageValue !== undefined) searchParams.set('page', String(pageValue));
     if (dateValue !== undefined) searchParams.set('date', String(dateValue));
+    if (!dateValue) searchParams.delete('date');
+
     if (event) searchParams.set('date', String(event.target.value));
 
     setSearchParams(searchParams);
