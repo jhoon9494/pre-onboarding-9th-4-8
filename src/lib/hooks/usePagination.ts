@@ -27,12 +27,17 @@ const usePagination = () => {
       : pageSize;
 
   useEffect(() => {
-    getOrderList('mock/mock_data.json').then(setRawData).catch(console.error);
-
-    const refetch = setInterval(() => {
+    const fetchData = () => {
       getOrderList('mock/mock_data.json').then(setRawData).catch(console.error);
-    }, 5000);
-    return () => clearInterval(refetch);
+    };
+
+    let timer: NodeJS.Timeout;
+    const refetch = () => {
+      fetchData();
+      timer = setTimeout(refetch, 5000);
+    };
+    refetch();
+    return () => clearInterval(timer);
   }, []);
 
   return { pageData, startPage, endPage, pageSize };
