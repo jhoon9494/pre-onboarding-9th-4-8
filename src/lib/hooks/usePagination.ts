@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { getOrderList } from '@/api/order';
 import { IOrderData } from '@/interface/order';
 import { PAGE_LENGTH, PER_PAGE } from '@/constants/pagenation';
 import { DateFilter } from '../utils/orderDataHelper';
+import useQueryString from './useQueryString';
 
 const usePagination = () => {
   const [rawData, setRawData] = useState<IOrderData[]>([]);
-  const [searchParams] = useSearchParams({ page: '1' });
+  const { getParam: getPage } = useQueryString('page');
+  const { getParam: getToday } = useQueryString('today');
 
-  const pageCount = Number(searchParams.get('page'));
+  const pageCount = getPage() ? Number(getPage()) : 1;
   const tabCount = Math.floor(pageCount / (PAGE_LENGTH + 1));
 
-  const filteredData = DateFilter([...rawData], searchParams.get('today'));
+  const filteredData = DateFilter([...rawData], getToday());
   const pageSize = Math.ceil(filteredData.length / PER_PAGE);
   const pageData = [...filteredData].splice(
     PER_PAGE * (pageCount - 1),
