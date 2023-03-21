@@ -22,8 +22,8 @@ import TablePagination from './TablePagination';
 import TableController from './TableController';
 
 const OrderTableArea = () => {
-  const { currentPage, currentDate } = useSetParams();
-  const { data } = useGetOrderData(currentPage, currentDate);
+  const { currentPage, currentDate, sortType, setSortType } = useSetParams();
+  const { data } = useGetOrderData(currentPage, currentDate, sortType);
 
   return (
     <Box bg="white" w="100%" borderRadius="2xl" p="1em 2em">
@@ -45,10 +45,14 @@ const OrderTableArea = () => {
           </TableCaption>
           <Thead>
             <Tr>
-              <Th>Order ID</Th>
+              <Th onClick={() => setSortType('id')} cursor="pointer">
+                Order ID
+              </Th>
               <Th>Status</Th>
               <Th>Customer Name / ID</Th>
-              <Th>Time</Th>
+              <Th onClick={() => setSortType('time')} cursor="pointer">
+                Time
+              </Th>
               <Th>Currency</Th>
             </Tr>
           </Thead>

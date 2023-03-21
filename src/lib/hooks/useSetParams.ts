@@ -17,7 +17,15 @@ const useSetParams = () => {
     window.scrollTo(0, 0);
   };
 
-  return { currentPage, currentDate, onSetParams };
+  const sortType = searchParams.get('sort') || 'id';
+
+  const setSortType = (type: string) => {
+    if (sortType === type) searchParams.set('sort', `reverse-${type}`);
+    else searchParams.set('sort', type);
+    setSearchParams(searchParams);
+  };
+
+  return { currentPage, currentDate, onSetParams, sortType, setSortType };
 };
 
 export default useSetParams;
