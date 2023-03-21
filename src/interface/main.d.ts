@@ -23,3 +23,8 @@ export interface IOnSetParams {
 export interface IErrorFallbackProps {
   resetErrorBoundary: (...args: unknown[]) => void;
 }
+
+export interface IFetchData {
+  order: IOrderItem[];
+  orderInfo: IOrderInfo;
+}

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { getOrderData } from '@/api/order';
+import { IFetchData } from '@/interface/main';
 
 const useGetOrderData = (
   pageNum = 1,
@@ -8,7 +9,7 @@ const useGetOrderData = (
   status: string | null,
   searchData: string | null,
 ) => {
-  return useQuery({
+  return useQuery<IFetchData>({
     queryKey: ['/mock/order', pageNum, date, sortType, status, searchData],
     queryFn: () =>
       getOrderData(pageNum - 1, date, sortType, status, searchData).then(
