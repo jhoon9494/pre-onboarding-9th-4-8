@@ -13,47 +13,34 @@ import { CheckIcon, WarningIcon } from '@chakra-ui/icons';
 import { IoIosPeople } from 'react-icons/io';
 import { TfiMoney } from 'react-icons/tfi';
 import { formatNumToDollar } from '@/lib/utils/formattingHelper';
-import { IOrderItem } from '@/interface/main';
-import useGetOrderData from '@/lib/hooks/useGetOrderData';
-import useSetParams from '@/lib/hooks/useSetParams';
-import useSearch from '@/lib/hooks/useSearch';
+import { IFetchData, IOrderItem } from '@/interface/main';
 
-const StatsArea = () => {
-  const { searchData } = useSearch();
-  const { currentPage, currentDate, sortType, status } = useSetParams();
-  const { data } = useGetOrderData(
-    currentPage,
-    currentDate,
-    sortType,
-    status,
-    searchData,
-  );
-
+const StatsArea = ({ data }: { data: IFetchData | undefined }) => {
   const stats = [
     {
       label: 'Total Order',
-      stat: data.orderInfo.totalCount,
+      stat: data?.orderInfo.totalCount,
       icon: IoIosPeople,
       iconColor: 'blue.900',
-      helpText: `${data.orderInfo.startDate} - ${data.orderInfo.endDate}`,
+      helpText: `${data?.orderInfo.startDate} - ${data?.orderInfo.endDate}`,
     },
     {
       label: 'Total Currency',
-      stat: formatNumToDollar(data.orderInfo.totalCurrency),
+      stat: formatNumToDollar(data?.orderInfo.totalCurrency),
       icon: TfiMoney,
       iconColor: 'blue.900',
-      helpText: `${data.orderInfo.startDate} - ${data.orderInfo.endDate}`,
+      helpText: `${data?.orderInfo.startDate} - ${data?.orderInfo.endDate}`,
     },
     {
       label: 'Complete',
-      stat: data.order.filter((item: IOrderItem) => item.status).length,
+      stat: data?.order.filter((item: IOrderItem) => item.status).length,
       icon: CheckIcon,
       iconColor: 'green.500',
       helpText: 'per Page',
     },
     {
       label: 'Incomplete',
-      stat: data.order.filter((item: IOrderItem) => !item.status).length,
+      stat: data?.order.filter((item: IOrderItem) => !item.status).length,
       icon: WarningIcon,
       iconColor: 'orange.500',
       helpText: 'per Page',
