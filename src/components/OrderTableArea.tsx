@@ -12,19 +12,30 @@ import {
   Spacer,
   Flex,
   Heading,
+  Input,
+  Button,
+  HStack,
 } from '@chakra-ui/react';
 import { CheckIcon, WarningIcon } from '@chakra-ui/icons';
 import { IOrderItem } from '@/interface/main';
 import useSetParams from '@/lib/hooks/useSetParams';
 import { formatPageInfo } from '@/lib/utils/formattingHelper';
 import useGetOrderData from '@/lib/hooks/useGetOrderData';
+import useSearch from '@/lib/hooks/useSearch';
 import TablePagination from './TablePagination';
 import TableController from './TableController';
 
 const OrderTableArea = () => {
   const { currentPage, currentDate, sortType, setSortType, setStatus, status } =
     useSetParams();
-  const { data } = useGetOrderData(currentPage, currentDate, sortType, status);
+  const { onSearch, searchData, formRef, inputRef, onReset } = useSearch();
+  const { data } = useGetOrderData(
+    currentPage,
+    currentDate,
+    sortType,
+    status,
+    searchData,
+  );
 
   return (
     <Box bg="white" w="100%" borderRadius="2xl" p="1em 2em">
@@ -32,6 +43,28 @@ const OrderTableArea = () => {
         <Box p="2">
           <Heading size="md">주문 테이블</Heading>
         </Box>
+        <Box flex={4}>
+          <form onSubmit={onSearch} ref={formRef}>
+            <HStack>
+              <Input
+                placeholder="고객 이름을 입력해주세요."
+                size="sm"
+                ref={inputRef}
+              />
+              <Button type="submit" size="sm">
+                검색
+              </Button>
+            </HStack>
+          </form>
+        </Box>
+        <Button
+          type="button"
+          size="sm"
+          onClick={onReset}
+          isDisabled={!searchData}
+        >
+          reset
+        </Button>
         <Spacer />
         <TableController />
       </Flex>

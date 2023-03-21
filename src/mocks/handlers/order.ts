@@ -13,15 +13,19 @@ export const orderListHandlers = [
     const date = req.url.searchParams.get('date');
     const sortType = req.url.searchParams.get('sortType');
     const status = req.url.searchParams.get('status');
+    const searchData = req.url.searchParams.get('searchData');
 
     const dataOfSelectedDate = date
       ? mockData.filter((item) => item.transaction_time.split(' ')[0] === date)
       : mockData;
 
-    const dataOfSortedByTimeOrId = generateSortedList(
-      dataOfSelectedDate,
-      sortType,
-    );
+    const dataOfSearch = searchData
+      ? dataOfSelectedDate.filter((item) =>
+          item.customer_name.toUpperCase().includes(searchData.toUpperCase()),
+        )
+      : dataOfSelectedDate;
+
+    const dataOfSortedByTimeOrId = generateSortedList(dataOfSearch, sortType);
 
     const dataOfFilteredByStatus = status
       ? [...dataOfSortedByTimeOrId].filter(

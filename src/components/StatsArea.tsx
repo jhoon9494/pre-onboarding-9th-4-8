@@ -16,10 +16,18 @@ import { formatNumToDollar } from '@/lib/utils/formattingHelper';
 import { IOrderItem } from '@/interface/main';
 import useGetOrderData from '@/lib/hooks/useGetOrderData';
 import useSetParams from '@/lib/hooks/useSetParams';
+import useSearch from '@/lib/hooks/useSearch';
 
 const StatsArea = () => {
+  const { searchData } = useSearch();
   const { currentPage, currentDate, sortType, status } = useSetParams();
-  const { data } = useGetOrderData(currentPage, currentDate, sortType, status);
+  const { data } = useGetOrderData(
+    currentPage,
+    currentDate,
+    sortType,
+    status,
+    searchData,
+  );
 
   const stats = [
     {

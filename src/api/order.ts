@@ -6,6 +6,7 @@ export const getOrderData = async (
   date: string | null,
   sortType: string | null,
   status: string | null,
+  searchData: string | null,
 ) => {
   return await apiClient({
     method: 'get',
@@ -16,6 +17,7 @@ export const getOrderData = async (
       limit: ITEMS_PER_PAGE,
       sortType,
       status,
+      searchData,
     },
   });
 };
