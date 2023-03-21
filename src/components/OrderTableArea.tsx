@@ -35,27 +35,30 @@ const OrderTableArea = ({ data }: { data: IFetchData | undefined }) => {
           <Heading size="md">주문 테이블</Heading>
         </Box>
         <Box flex={4}>
-          <form onSubmit={onSearch} ref={formRef}>
-            <HStack>
-              <Input
-                placeholder="고객 이름을 입력해주세요."
-                size="sm"
-                ref={inputRef}
-              />
-              <Button type="submit" size="sm">
-                검색
-              </Button>
-            </HStack>
-          </form>
+          <HStack maxW="500px">
+            <form onSubmit={onSearch} ref={formRef} style={{ flex: 1 }}>
+              <HStack>
+                <Input
+                  placeholder="고객 이름을 입력해주세요."
+                  size="sm"
+                  ref={inputRef}
+                />
+                <Button type="submit" size="sm">
+                  검색
+                </Button>
+              </HStack>
+            </form>
+            <Button
+              type="button"
+              size="sm"
+              onClick={onReset}
+              isDisabled={!searchData}
+            >
+              reset
+            </Button>
+          </HStack>
         </Box>
-        <Button
-          type="button"
-          size="sm"
-          onClick={onReset}
-          isDisabled={!searchData}
-        >
-          reset
-        </Button>
+
         <Spacer />
         <TableController />
       </Flex>
