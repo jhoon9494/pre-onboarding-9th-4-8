@@ -18,14 +18,32 @@ const useSetParams = () => {
   };
 
   const sortType = searchParams.get('sort') || 'id';
-
   const setSortType = (type: string) => {
     if (sortType === type) searchParams.set('sort', `reverse-${type}`);
     else searchParams.set('sort', type);
     setSearchParams(searchParams);
   };
 
-  return { currentPage, currentDate, onSetParams, sortType, setSortType };
+  const status = searchParams.get('status');
+  const setStatus = (value: string) => {
+    if (!value) searchParams.delete('status');
+    else {
+      if (status === value) searchParams.set('status', 'false');
+      else searchParams.set('status', 'true');
+    }
+    searchParams.set('page', '1');
+    setSearchParams(searchParams);
+  };
+
+  return {
+    currentPage,
+    currentDate,
+    onSetParams,
+    sortType,
+    setSortType,
+    status,
+    setStatus,
+  };
 };
 
 export default useSetParams;

@@ -3,10 +3,13 @@ import useSetParams from '@/lib/hooks/useSetParams';
 import { TODAY } from '@/constants/config';
 
 const TableController = () => {
-  const { onSetParams } = useSetParams();
+  const { onSetParams, setStatus } = useSetParams();
 
   return (
     <ButtonGroup variant="outline" spacing="4">
+      <Button colorScheme="blue" size="sm" onClick={() => setStatus('')}>
+        필터링 취소
+      </Button>
       <Button
         colorScheme="blue"
         size="sm"

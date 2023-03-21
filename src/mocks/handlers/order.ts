@@ -12,21 +12,31 @@ export const orderListHandlers = [
     const limit = Number(req.url.searchParams.get('limit'));
     const date = req.url.searchParams.get('date');
     const sortType = req.url.searchParams.get('sortType');
+    const status = req.url.searchParams.get('status');
 
     const dataOfSelectedDate = date
       ? mockData.filter((item) => item.transaction_time.split(' ')[0] === date)
       : mockData;
 
-    const sortedData = generateSortedList(dataOfSelectedDate, sortType);
+    const dataOfSortedByTimeOrId = generateSortedList(
+      dataOfSelectedDate,
+      sortType,
+    );
+
+    const dataOfFilteredByStatus = status
+      ? [...dataOfSortedByTimeOrId].filter(
+          (item) => String(item.status) === status,
+        )
+      : dataOfSortedByTimeOrId;
 
     const { startDate, endDate } = generateStartAndEndDate(dataOfSelectedDate);
 
     return res(
       ctx.json({
-        order: [...sortedData].splice(offset * limit, limit),
+        order: [...dataOfFilteredByStatus].splice(offset * limit, limit),
         orderInfo: {
-          totalCount: dataOfSelectedDate.length,
-          totalCurrency: dataOfSelectedDate.reduce(
+          totalCount: dataOfFilteredByStatus.length,
+          totalCurrency: dataOfFilteredByStatus.reduce(
             (acc, cur) => acc + formatDollarToNumber(cur.currency),
             0,
           ),
