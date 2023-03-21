@@ -8,7 +8,7 @@ const TablePagination = ({
 }: {
   totalCount: number | undefined;
 }) => {
-  const { currentPage, onSetParams } = useSetParams();
+  const { currentPage, onSetParams, currentDate } = useSetParams();
 
   return (
     <Stack spacing={2} direction="row" align="center">
@@ -18,7 +18,12 @@ const TablePagination = ({
           colorScheme="blue"
           size="sm"
           key={num}
-          onClick={() => onSetParams({ pageValue: num + 1 })}
+          onClick={() =>
+            onSetParams({
+              pageValue: num + 1,
+              dateValue: currentDate ? currentDate : '',
+            })
+          }
           variant={currentPage === num + 1 ? 'solid' : 'outline'}
         >
           {num + 1}
