@@ -27,6 +27,29 @@
 
 <br/>
 
+## 👍 내가 구현한 기능
+- [주문 목록 페이지 구현 PR](https://github.com/Wanted-PreOnboarding-Team-8/pre-onboarding-9th-4-8/pull/7)
+    - useSearchParams를 이용하여 페이지네이션 및 오늘 필터링 기능 구현
+    - usePagination 훅을 만들어서 data fetch 후 페이지네이션에 필요한 데이터를 처리
+    - setInterval을 이용하여 서버 데이터 최신화 부분을 구현
+    
+- [필터링 및 검색 기능 구현 PR](https://github.com/Wanted-PreOnboarding-Team-8/pre-onboarding-9th-4-8/pull/12)
+    - querystring을 이용하여 정렬, 필터링, 검색 기능 구현
+    - useSearch 커스텀 훅을 생성하여 검색어를 입력 받고 querystring으로 전달
+
+- [테스트 코드 구현 PR](https://github.com/Wanted-PreOnboarding-Team-8/pre-onboarding-9th-4-8/pull/22)
+    - 각 컴포넌트에 사용되는 유틸 함수 테스트
+    - 페이지 렌더링 여부 테스트
+    - 검색 및 필터링 적용 시 querystring에 반영되는지 테스트
+    - [act 관련 에러 해결 방법 공유](https://github.com/Wanted-PreOnboarding-Team-8/pre-onboarding-9th-4-8/issues/26#issuecomment-1480795326)
+
+### 배운 점
+
+- setInterval 내에서 함수가 실행되는 데 소모되는 시간도 delay에 포함되기 때문에 일정한 delay가 보장되지 않아, setTimeout이 추천되는 방법
+
+
+<br/>
+
 ## 🌟 Best Practice 선정 및 이유
 
 - **Mar 23, 2023** 　|　[테스트 코드 구현 PR](https://github.com/Wanted-PreOnboarding-Team-8/pre-onboarding-9th-4-8/pull/22)
